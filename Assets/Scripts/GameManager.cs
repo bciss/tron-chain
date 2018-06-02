@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour {
 	public PlayerController			playerPrefab;
 	public List<PlayerController>	players;
 	public PlayerController			curPlayer;
+
+	public readyButton				guigui;
 	
 
 [Serializable]
@@ -62,5 +64,13 @@ public class posInit
 	}
 	public void sendDir(string p_params) {
 		netManager.dirPlayer(p_params);
+	}
+
+	public void sendReady(float p_params) {
+		netManager.joinGame(p_params);
+	}
+
+	public void CiaoGuigui() {
+		guigui.gogame();
 	}
 }

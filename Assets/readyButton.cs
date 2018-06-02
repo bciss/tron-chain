@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class readyButton : MonoBehaviour {
 	public InputField value;
 	public GameObject gui;
+	public GameManager gm;
 	private bool ready = false;
 	private Button btn;
 	// Use this for initialization
@@ -23,16 +24,15 @@ public class readyButton : MonoBehaviour {
 		ready = !ready;
 		if(ready == true){
 			value.readOnly = !value.readOnly;
-		//	JoinGame(int.Parse(value.text));
 		}
 		else
 		{
 			value.readOnly = !value.readOnly;
-		//	JoinGame (-1);
+			gm.sendReady(float.Parse(value.text));
 		}
 		return ;
 	} 
-	void gogame()
+	public void gogame()
 	{
 		gui.SetActive(false);
 		return;

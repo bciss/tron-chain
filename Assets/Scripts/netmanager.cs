@@ -54,6 +54,7 @@ public class mapInfo
 				gm.updatePlayer(p_params.p2.x, p_params.p2.y);
 				gm.updateOtherPlayer(p_params.p1.x, p_params.p1.y, p_params.p1.direction);
 			}
+			gm.CiaoGuigui();
 		});
 
 		socket.On("updateGame", (data) => {
@@ -61,10 +62,10 @@ public class mapInfo
 			p_params = JsonUtility.FromJson<mapInfo>(data.ToString());
 			if (idPlayer == "1") {
 				gm.updatePlayer(p_params.p1.x, p_params.p1.y);
-				// move the other
+				gm.updateOtherPlayer(p_params.p2.x, p_params.p2.y, p_params.p2.direction);
 			} else if (idPlayer == "2") {
 				gm.updatePlayer(p_params.p2.x, p_params.p2.y);
-				// move the other
+				gm.updateOtherPlayer(p_params.p1.x, p_params.p1.y, p_params.p1.direction);
 			}
 		});
 	}
@@ -79,8 +80,8 @@ public class mapInfo
 		Debug.Log(e);
 	}
 
-	public void joinGame() {
-		socket.Emit("joinGame", "");
+	public void joinGame(float p_params) {
+		socket.Emit("joinGame", p_params);
 	}
 
 	public void deadGame() {
@@ -90,6 +91,7 @@ public class mapInfo
 	public void dirPlayer(string p_params) {
 		socket.Emit("dirPlayer", p_params);
 	}
+
 
 
 

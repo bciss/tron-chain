@@ -249,6 +249,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   value: {fileID: 154889478}
   gui: {fileID: 1813711012}
+  gm: {fileID: 0}
 --- !u!1 &137190017
 GameObject:
   m_ObjectHideFlags: 0
@@ -1579,9 +1580,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 178850554ef4a4a1ea67f08cf82f8bb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  netManager: {fileID: 0}
   playerPrefab: {fileID: 114441615139836776, guid: 4102821ff2e8f42cab10b814fc3978c1,
     type: 2}
   players: []
+  curPlayer: {fileID: 0}
+  guigui: {fileID: 0}
 --- !u!114 &2096076582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1593,3 +1597,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b594897aac7994e9b860bf8152299384, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gm: {fileID: 2096076581}
