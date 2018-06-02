@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
+public class OtherPlayers : MonoBehaviour {
 
 	public GameManager			gm;
-	public float				speed = 10;
 	public GameObject			square;
 	public string				myid;
 	
@@ -22,23 +21,6 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (alive) {
-			if (Input.GetKeyDown(KeyCode.LeftArrow) && direction != "right") {
-				angle = Mathf.Atan2(1, 0) * Mathf.Rad2Deg;
-				direction = "left";
-			} else if (Input.GetKeyDown(KeyCode.DownArrow) && direction != "up") {
-				angle = Mathf.Atan2(0, -1) * Mathf.Rad2Deg;
-				direction = "down";
-			} else if (Input.GetKeyDown(KeyCode.RightArrow) && direction != "left") {
-				angle = Mathf.Atan2(-1, 0) * Mathf.Rad2Deg;
-				direction = "right";
-			} else if (Input.GetKeyDown(KeyCode.UpArrow) && direction != "down") {
-				angle = Mathf.Atan2(0 , 1) * Mathf.Rad2Deg;
-				direction = "up";
-			}
-		gm.sendDir(direction);
-		transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-		}
 	}
 
 	public void Direction(string dir) {
@@ -55,6 +37,7 @@ public class PlayerController : MonoBehaviour {
 			angle = Mathf.Atan2(0 , 1) * Mathf.Rad2Deg;
 			direction = "up";
 		}
+		transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 	}
 
 	public void UpdatePos(float x, float y) {
