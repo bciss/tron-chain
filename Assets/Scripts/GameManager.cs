@@ -61,8 +61,8 @@ public class posInit
 		curPlayer.myid = p_id;
 	}
 
-	public void updatePlayer(float x, float y) {
-		curPlayer.UpdatePos(x, y);
+	public void updatePlayer(float x, float y, string dir) {
+		curPlayer.UpdatePos(x, y, dir);
 	}
 
 	public void updateOtherPlayer(float x, float y, string p_dir) {

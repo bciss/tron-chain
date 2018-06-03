@@ -64,10 +64,10 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
-	public void UpdatePos(float x, float y) {
+	public void UpdatePos(float x, float y, string dir) {
 		posSquare.AddFirst(transform.position);
 		lastPos = transform.position;
-		transform.position = new Vector3(x, y, 0);
+			transform.position = new Vector3(x, y, 0);
 		if (transform.position != lastPos) {
 			Instantiate(square, lastPos, transform.rotation);
 		}

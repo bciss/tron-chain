@@ -78,10 +78,10 @@ public class mapInfo
 		Debug.Log(p_params.p1);
 		if (idPlayer == "1") {
 			Debug.Log(p_params.p1);
-			gm.updatePlayer(p_params.p1.x, p_params.p1.y);
+			gm.updatePlayer(p_params.p1.x, p_params.p1.y, p_params.p1.direction);
 			gm.updateOtherPlayer(p_params.p2.x, p_params.p2.y, p_params.p2.direction);
 		} else if (idPlayer == "2") {
-			gm.updatePlayer(p_params.p2.x, p_params.p2.y);
+			gm.updatePlayer(p_params.p2.x, p_params.p2.y, p_params.p2.direction);
 			gm.updateOtherPlayer(p_params.p1.x, p_params.p1.y, p_params.p1.direction);
 		}
 			gm.CiaoGuigui();
