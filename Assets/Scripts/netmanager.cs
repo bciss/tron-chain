@@ -33,18 +33,21 @@ public class mapInfo
 	void Awake () {
 
 		socket.On("joinGame", (data) => {
+		Debug.Log("recive : joinGame");
 			posInit p_params = new posInit();
 			p_params = JsonUtility.FromJson<posInit>(data.ToString());
 			gm.InitPlayer(p_params.x, p_params.y, p_params.direction);
 		});
 
 		socket.On("idPlayer", (data) => {
+		Debug.Log("recive : id");
 			string p_params;
 			p_params = JsonUtility.FromJson<string>(data.ToString());
 			gm.setMyId(p_params);
 		});
 
 		socket.On("startGame", (data) => {
+		Debug.Log("recive : startGame");
 			mapInfo p_params = new mapInfo();
 			p_params = JsonUtility.FromJson<mapInfo>(data.ToString());
 			if (idPlayer == "1") {
@@ -58,6 +61,7 @@ public class mapInfo
 		});
 
 		socket.On("updateGame", (data) => {
+		Debug.Log("recive : updateGame");
 			mapInfo p_params = new mapInfo();
 			p_params = JsonUtility.FromJson<mapInfo>(data.ToString());
 			if (idPlayer == "1") {
@@ -82,14 +86,17 @@ public class mapInfo
 
 	public void joinGame(float p_params) {
 		socket.Emit("joinGame", p_params);
+		Debug.Log("sendig : joinGame");
 	}
 
 	public void deadGame() {
-		socket.Emit("deadGame", "");
+		socket.Emit("dead", "");
+		Debug.Log("sendig : deandGame");
 	}
 
 	public void dirPlayer(string p_params) {
 		socket.Emit("dirPlayer", p_params);
+		Debug.Log("sendig : dirPlayer");
 	}
 
 
@@ -106,7 +113,7 @@ public class mapInfo
 
 		string stet = "sa marche bro";
 		if (Input.GetKeyDown(KeyCode.DownArrow)) {
-			socket.Emit("up", stet);
+			socket.Emit("", stet);
 		}
 	}
 
