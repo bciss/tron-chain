@@ -45,12 +45,14 @@ public class posInit
 
 	public void InitOtherPlayer(float x, float y, string dir) {
 		OtherPlayers =  Instantiate<OtherPlayers>(OtherPlayersPrefab, new Vector3(x, y, 0), transform.rotation);
+		OtherPlayers.gm = gameObject.GetComponent<GameManager>();		
 		OtherPlayers.Direction(dir);
 		// players.Add(curPlayer);
 	}
 
 	public void InitPlayer(float x, float y, string dir) {
 		curPlayer =  Instantiate<PlayerController>(playerPrefab, new Vector3(x, y, 0), transform.rotation);
+		curPlayer.gm = gameObject.GetComponent<GameManager>();
 		curPlayer.Direction(dir);
 		players.Add(curPlayer);
 	}

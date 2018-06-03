@@ -1630,8 +1630,11 @@ MonoBehaviour:
   netManager: {fileID: 2096076582}
   playerPrefab: {fileID: 114441615139836776, guid: 4102821ff2e8f42cab10b814fc3978c1,
     type: 2}
+  OtherPlayersPrefab: {fileID: 114747279143656998, guid: 09c8d73613d0f40fab1a956a87333739,
+    type: 2}
   players: []
   curPlayer: {fileID: 0}
+  OtherPlayers: {fileID: 0}
   guigui: {fileID: 47934671}
 --- !u!114 &2096076582
 MonoBehaviour:

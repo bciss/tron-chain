@@ -21,6 +21,7 @@ public class posInit
     public float x;
     public float y;
 	public string direction;
+	public string idPlayer;
 }
 
 [Serializable]
@@ -67,11 +68,16 @@ public class mapInfo
 	public IEnumerator InitTheMainThread(posInit p_params) {
 		gm.InitPlayer(100, 100, "");
 		gm.InitOtherPlayer(50, 50, "");
+		gm.setMyId(p_params.idPlayer);
+		idPlayer = p_params.idPlayer;
 		yield return null;
 	}
 	public IEnumerator ThisWillBeExecutedOnTheMainThread(mapInfo p_params) {
-		Debug.Log ("This is executed from the main thread");
+		// Debug.Log ("This is executed from the main thread");
+		Debug.Log(idPlayer);
+		Debug.Log(p_params.p1);
 		if (idPlayer == "1") {
+			Debug.Log(p_params.p1);
 			gm.updatePlayer(p_params.p1.x, p_params.p1.y);
 			gm.updateOtherPlayer(p_params.p2.x, p_params.p2.y, p_params.p2.direction);
 		} else if (idPlayer == "2") {

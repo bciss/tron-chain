@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gm: {fileID: 0}
-  square: {fileID: 1091570327751982, guid: cd2a3802edfdd430a91816da0ec37a57, type: 2}
+  square: {fileID: 1091570327751982, guid: 13fedeb73f9bd41158764c0d77757cab, type: 2}
   myid: 
 --- !u!212 &212024130599020500
 SpriteRenderer:
