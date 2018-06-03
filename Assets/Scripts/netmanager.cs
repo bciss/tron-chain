@@ -126,11 +126,6 @@ public class mapInfo
 
 
 	void Update () {
-
-		string stet = "sa marche bro";
-		if (Input.GetKeyDown(KeyCode.DownArrow)) {
-			socket.Emit("", stet);
-		}
 	}
 
 }
