@@ -111,7 +111,7 @@ public class mapInfo
 
 	public void dirPlayer(string p_params) {
 		Debug.Log("sendig 1 : dirPlayer");
-		socket.Emit("dirPlayer", p_params);
+		socket.Emit(p_params, "");
 		Debug.Log("sendig 2 : dirPlayer");
 	}
 

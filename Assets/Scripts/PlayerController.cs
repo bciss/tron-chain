@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		posSquare = new LinkedList<Vector3>();
-		alive = false;
+		alive = true;
 	}
 	
 	// Update is called once per frame
