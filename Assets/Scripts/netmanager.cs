@@ -32,12 +32,13 @@ public class mapInfo
 
 	// Use this for initialization
 	void Awake () {
-		gm.InitPlayer(100, 100, "");
+		// gm.InitPlayer(100, 100, "");
+		// gm.InitOtherPlayer(50, 50, "");
 		socket.On("joinGame", (data) => {
 			Debug.Log("recive : joinGame");
 			posInit p_params = new posInit();
 			p_params = JsonUtility.FromJson<posInit>(data.ToString());
-			gm.updatePlayer(p_params.x, p_params.y);
+			UnityMainThreadDispatcher.Instance().Enqueue(InitTheMainThread(p_params));
 		});
 
 		socket.On("startGame", (data) => {
@@ -45,6 +46,7 @@ public class mapInfo
 			mapInfo p_params = new mapInfo();
 			p_params = JsonUtility.FromJson<mapInfo>(data.ToString());
 			UnityMainThreadDispatcher.Instance().Enqueue(ThisWillBeExecutedOnTheMainThread(p_params));
+			gm.CiaoGuigui();
 		});
 
 		socket.On("idPlayer", (data) => {
@@ -58,16 +60,16 @@ public class mapInfo
 			Debug.Log("recive : updateGame");
 			mapInfo p_params = new mapInfo();
 			p_params = JsonUtility.FromJson<mapInfo>(data.ToString());
-			if (idPlayer == "1") {
-				gm.updatePlayer(p_params.p1.x, p_params.p1.y);
-				gm.updateOtherPlayer(p_params.p2.x, p_params.p2.y, p_params.p2.direction);
-			} else if (idPlayer == "2") {
-				gm.updatePlayer(p_params.p2.x, p_params.p2.y);
-				gm.updateOtherPlayer(p_params.p1.x, p_params.p1.y, p_params.p1.direction);
-			}
+			UnityMainThreadDispatcher.Instance().Enqueue(ThisWillBeExecutedOnTheMainThread(p_params));
 		});
+
 	}
 
+	public IEnumerator InitTheMainThread(posInit p_params) {
+		gm.InitPlayer(100, 100, "");
+		gm.InitOtherPlayer(50, 50, "");
+		yield return null;
+	}
 	public IEnumerator ThisWillBeExecutedOnTheMainThread(mapInfo p_params) {
 		Debug.Log ("This is executed from the main thread");
 		if (idPlayer == "1") {
@@ -77,7 +79,6 @@ public class mapInfo
 			gm.updatePlayer(p_params.p2.x, p_params.p2.y);
 			gm.updateOtherPlayer(p_params.p1.x, p_params.p1.y, p_params.p1.direction);
 		}
-		gm.CiaoGuigui();
      yield return null;
  }
 

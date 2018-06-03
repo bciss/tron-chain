@@ -8,8 +8,10 @@ public class GameManager : MonoBehaviour {
 
 	public netmanager				netManager;
 	public PlayerController			playerPrefab;
+	public OtherPlayers				OtherPlayersPrefab;
 	public List<PlayerController>	players;
 	public PlayerController			curPlayer;
+	public OtherPlayers				OtherPlayers;
 
 	public readyButton				guigui;
 	
@@ -41,6 +43,12 @@ public class posInit
 		// }
 	}
 
+	public void InitOtherPlayer(float x, float y, string dir) {
+		OtherPlayers =  Instantiate<OtherPlayers>(OtherPlayersPrefab, new Vector3(x, y, 0), transform.rotation);
+		OtherPlayers.Direction(dir);
+		// players.Add(curPlayer);
+	}
+
 	public void InitPlayer(float x, float y, string dir) {
 		curPlayer =  Instantiate<PlayerController>(playerPrefab, new Vector3(x, y, 0), transform.rotation);
 		curPlayer.Direction(dir);
@@ -56,7 +64,7 @@ public class posInit
 	}
 
 	public void updateOtherPlayer(float x, float y, string p_dir) {
-		curPlayer.UpdatePos(x, y);
+		OtherPlayers.UpdatePos(x, y);
 	}
 
 	public void playerDied() {
