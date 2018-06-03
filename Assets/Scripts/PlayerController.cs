@@ -75,7 +75,9 @@ public class PlayerController : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-		gm.playerDied();
+		if (alive) {
+			gm.playerDied();
+		}
 		alive = false;
         // Debug.Log(other.name);
         // Debug.Log("Trigger ");
