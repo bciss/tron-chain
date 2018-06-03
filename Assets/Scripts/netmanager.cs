@@ -9,7 +9,6 @@ using Quobject.EngineIoClientDotNet.Modules;
 
 public class netmanager : MonoBehaviour {
 	private Socket socket = IO.Socket("http://guiedo.com:9875");
-	string monLock;
 
 	public GameManager	gm;
 	private string idPlayer;
@@ -44,17 +43,8 @@ public class mapInfo
 		socket.On("startGame", (data) => {
 			Debug.Log("recive : startGame");
 			mapInfo p_params = new mapInfo();
-			lock(chatLog) {
-				p_params = JsonUtility.FromJson<mapInfo>(data.ToString());
-				if (idPlayer == "1") {
-					gm.updatePlayer(p_params.p1.x, p_params.p1.y);
-					gm.updateOtherPlayer(p_params.p2.x, p_params.p2.y, p_params.p2.direction);
-				} else if (idPlayer == "2") {
-					gm.updatePlayer(p_params.p2.x, p_params.p2.y);
-					gm.updateOtherPlayer(p_params.p1.x, p_params.p1.y, p_params.p1.direction);
-				}
-				gm.CiaoGuigui();
-			}
+			p_params = JsonUtility.FromJson<mapInfo>(data.ToString());
+			UnityMainThreadDispatcher.Instance().Enqueue(ThisWillBeExecutedOnTheMainThread(p_params));
 		});
 
 		socket.On("idPlayer", (data) => {
@@ -77,6 +67,19 @@ public class mapInfo
 			}
 		});
 	}
+
+	public IEnumerator ThisWillBeExecutedOnTheMainThread(mapInfo p_params) {
+		Debug.Log ("This is executed from the main thread");
+		if (idPlayer == "1") {
+			gm.updatePlayer(p_params.p1.x, p_params.p1.y);
+			gm.updateOtherPlayer(p_params.p2.x, p_params.p2.y, p_params.p2.direction);
+		} else if (idPlayer == "2") {
+			gm.updatePlayer(p_params.p2.x, p_params.p2.y);
+			gm.updateOtherPlayer(p_params.p1.x, p_params.p1.y, p_params.p1.direction);
+		}
+		gm.CiaoGuigui();
+     yield return null;
+ }
 
 	public void connect(string e)
 	{
