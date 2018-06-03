@@ -26,17 +26,24 @@ public class PlayerController : MonoBehaviour {
 			if (Input.GetKeyDown(KeyCode.LeftArrow) && direction != "right") {
 				angle = Mathf.Atan2(1, 0) * Mathf.Rad2Deg;
 				direction = "left";
+		gm.sendDir(direction);
+				
 			} else if (Input.GetKeyDown(KeyCode.DownArrow) && direction != "up") {
 				angle = Mathf.Atan2(0, -1) * Mathf.Rad2Deg;
 				direction = "down";
+		gm.sendDir(direction);
+				
 			} else if (Input.GetKeyDown(KeyCode.RightArrow) && direction != "left") {
 				angle = Mathf.Atan2(-1, 0) * Mathf.Rad2Deg;
 				direction = "right";
+		gm.sendDir(direction);
+				
 			} else if (Input.GetKeyDown(KeyCode.UpArrow) && direction != "down") {
 				angle = Mathf.Atan2(0 , 1) * Mathf.Rad2Deg;
 				direction = "up";
-			}
 		gm.sendDir(direction);
+				
+			}
 		transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 		}
 	}
@@ -61,7 +68,9 @@ public class PlayerController : MonoBehaviour {
 		posSquare.AddFirst(transform.position);
 		lastPos = transform.position;
 		transform.position = new Vector3(x, y, 0);
-		Instantiate(square, lastPos, transform.rotation);
+		if (transform.position != lastPos) {
+			Instantiate(square, lastPos, transform.rotation);
+		}
 	}
 
     void OnTriggerEnter2D(Collider2D other)
