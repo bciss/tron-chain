@@ -46,7 +46,6 @@ public class mapInfo
 			mapInfo p_params = new mapInfo();
 			p_params = JsonUtility.FromJson<mapInfo>(data.ToString());
 			UnityMainThreadDispatcher.Instance().Enqueue(ThisWillBeExecutedOnTheMainThread(p_params));
-			gm.CiaoGuigui();
 		});
 
 		socket.On("idPlayer", (data) => {
@@ -79,6 +78,8 @@ public class mapInfo
 			gm.updatePlayer(p_params.p2.x, p_params.p2.y);
 			gm.updateOtherPlayer(p_params.p1.x, p_params.p1.y, p_params.p1.direction);
 		}
+			gm.CiaoGuigui();
+		
      yield return null;
  }
 
