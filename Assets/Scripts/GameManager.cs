@@ -27,7 +27,7 @@ public class posInit
 		players = new List<PlayerController>();
 		// players.Add(Instantiate<PlayerController>(playerPrefab, new Vector3(0, 0, 0), transform.rotation));
 		
-		InvokeRepeating("UpdatePosition", 0, 0.1f); //calls UpdatePosition() every 2 secs
+		// InvokeRepeating("UpdatePosition", 0, 0.1f); //calls UpdatePosition() every 2 secs
 	}
 	
 	// Update is called once per frame
@@ -35,16 +35,16 @@ public class posInit
 		
 	}
 	void UpdatePosition () {
-		foreach (PlayerController player in players)
-		{
+		// foreach (PlayerController player in players)
+		// {
 			// player.moveForward();
-		}
+		// }
 	}
 
 	public void InitPlayer(float x, float y, string dir) {
 		curPlayer =  Instantiate<PlayerController>(playerPrefab, new Vector3(x, y, 0), transform.rotation);
 		curPlayer.Direction(dir);
-		players.Add(Instantiate<PlayerController>(playerPrefab, new Vector3(0, 0, 0), transform.rotation));
+		players.Add(curPlayer);
 	}
 
 	public void setMyId(string p_id) {

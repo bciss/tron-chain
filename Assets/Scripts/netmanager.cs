@@ -9,9 +9,11 @@ using Quobject.EngineIoClientDotNet.Modules;
 
 public class netmanager : MonoBehaviour {
 	private Socket socket = IO.Socket("http://guiedo.com:9875");
+	string monLock;
 
 	public GameManager	gm;
 	private string idPlayer;
+	protected List<string> chatLog = new List<string> (); 
 
 
 [Serializable]
@@ -31,37 +33,39 @@ public class mapInfo
 
 	// Use this for initialization
 	void Awake () {
-
+		gm.InitPlayer(100, 100, "");
 		socket.On("joinGame", (data) => {
-		Debug.Log("recive : joinGame");
+			Debug.Log("recive : joinGame");
 			posInit p_params = new posInit();
 			p_params = JsonUtility.FromJson<posInit>(data.ToString());
-			gm.InitPlayer(p_params.x, p_params.y, p_params.direction);
+			gm.updatePlayer(p_params.x, p_params.y);
+		});
+
+		socket.On("startGame", (data) => {
+			Debug.Log("recive : startGame");
+			mapInfo p_params = new mapInfo();
+			lock(chatLog) {
+				p_params = JsonUtility.FromJson<mapInfo>(data.ToString());
+				if (idPlayer == "1") {
+					gm.updatePlayer(p_params.p1.x, p_params.p1.y);
+					gm.updateOtherPlayer(p_params.p2.x, p_params.p2.y, p_params.p2.direction);
+				} else if (idPlayer == "2") {
+					gm.updatePlayer(p_params.p2.x, p_params.p2.y);
+					gm.updateOtherPlayer(p_params.p1.x, p_params.p1.y, p_params.p1.direction);
+				}
+				gm.CiaoGuigui();
+			}
 		});
 
 		socket.On("idPlayer", (data) => {
-		Debug.Log("recive : id");
+			Debug.Log("recive : id");
 			string p_params;
 			p_params = JsonUtility.FromJson<string>(data.ToString());
 			gm.setMyId(p_params);
 		});
 
-		socket.On("startGame", (data) => {
-		Debug.Log("recive : startGame");
-			mapInfo p_params = new mapInfo();
-			p_params = JsonUtility.FromJson<mapInfo>(data.ToString());
-			if (idPlayer == "1") {
-				gm.updatePlayer(p_params.p1.x, p_params.p1.y);
-				gm.updateOtherPlayer(p_params.p2.x, p_params.p2.y, p_params.p2.direction);
-			} else if (idPlayer == "2") {
-				gm.updatePlayer(p_params.p2.x, p_params.p2.y);
-				gm.updateOtherPlayer(p_params.p1.x, p_params.p1.y, p_params.p1.direction);
-			}
-			gm.CiaoGuigui();
-		});
-
 		socket.On("updateGame", (data) => {
-		Debug.Log("recive : updateGame");
+			Debug.Log("recive : updateGame");
 			mapInfo p_params = new mapInfo();
 			p_params = JsonUtility.FromJson<mapInfo>(data.ToString());
 			if (idPlayer == "1") {
